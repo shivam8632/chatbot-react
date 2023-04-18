@@ -1,11 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API } from '../../config/Api';
+import { toast } from 'react-toastify';
 
 import Google from '../../assets/google.svg';
 import Outlook from '../../assets/outlook.svg';
 
 function Signup() {
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleSignup = () => {
+        axios.post(API.BASE_URL + 'register/', {
+            email: email,
+            firstname: firstName,
+            lastname: lastName,
+            password: password,
+        })
+        .then(function (response) {
+            console.log("SIGNUP", response)
+            toast.success("Sign up successfully");
+            navigate('/')
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
   return (
     <div className='signup auth'>
         <Container>
@@ -14,22 +39,22 @@ function Signup() {
             <form className='d-flex flex-wrap justify-content-between'>
                 <div className="input-container">
                     <label htmlFor="">First Name</label>
-                    <input type="text" placeholder='Enter your First Name' />
+                    <input type="text" placeholder='Enter your First Name' value={firstName} onChange={(e) => {setFirstName(e.target.value)}} />
                 </div>
                 <div className="input-container">
                     <label htmlFor="">Last Name</label>
-                    <input type="text" placeholder='Enter your Last Name' />
+                    <input type="text" placeholder='Enter your Last Name' value={lastName} onChange={(e) => {setLastName(e.target.value)}} />
                 </div>
                 <div className="input-container">
                     <label htmlFor="">Email</label>
-                    <input type="email" placeholder='Enter your email' />
+                    <input type="email" placeholder='Enter your email' value={email} onChange={(e) => {setEmail(e.target.value)}} />
                 </div>
                 <div className="input-container">
                     <label htmlFor="">Password</label>
-                    <input type="password"  placeholder='Enter your password' />
+                    <input type="password"  placeholder='Enter your password' value={password} onChange={(e) => {setPassword(e.target.value)}} />
                 </div>
                 <div className="input-buttons d-flex flex-column align-items-center mt-2 w-100">
-                    <button className='button button-fill mb-2'>Sign Up</button>
+                    <button type='button' className='button button-fill mb-2' onClick={(e) => {handleSignup(e)}}>Sign Up</button>
                     <span className='mx-md-4'>or</span>
                     <Link to='/'>Sign In</Link>
                 </div>
