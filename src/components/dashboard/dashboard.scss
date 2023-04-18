@@ -1,0 +1,76 @@
+.dashboard {
+    .dashboard-container {
+        .dash-side {
+            min-height: 100vh;
+            border-right: 1px solid #d5d5d5;
+            .tabs-head {
+                height: fit-content;
+                .nav-item {
+                    .nav-link {
+                        font-size: 12px;
+                    }
+                    .nav-link.active {
+                        background: none;
+                        color: inherit;
+                        position: relative;
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            border-bottom: 1px solid;
+                            width: 100%;
+                            height: 1px;
+                        }
+                    }
+                }
+            }
+            .tabs-content {
+                .tab-content {
+                    form {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        .input-container {
+                            &:nth-child(1), &:nth-child(2) {
+                                width: 47%;
+                            }
+                            label {
+                                font-size: 13px;
+                            }
+                            select, input {
+                                border-radius: 20px;
+                                padding: 6px 10px;
+                                border-color: #bfbfbf;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .dash-main {
+            min-height: 100vh;
+            .ql-container.ql-snow {
+                min-height: 40vh;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .dashboard {
+        .dashboard-container {
+            .dash-side {
+                .tabs-head {
+                    .nav-item {
+                        .nav-link {
+                            font-size: 14px;
+                            padding: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
