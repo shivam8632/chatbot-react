@@ -26,6 +26,9 @@ function Login() {
         })
         .catch(function (error) {
             console.log(error);
+            if(error.response.data.message) {
+                toast.warn(error.response.data.message)
+            }
         })
     }
   return (
@@ -47,11 +50,11 @@ function Login() {
                     <span className='mx-md-4'>or</span>
                     <Link to='/signup'>Sign up</Link>
                 </div>
-                <span className='mt-4 line'></span>
+                {/* <span className='mt-4 line'></span>
                 <div className="buttons w-100 mt-4">
                     <button className='button'><img src={Google} alt='google' /> Sign in with Google</button>
                     <button className='button'><img src={Outlook} alt='outlook' /> Sign in with Outlook</button>
-                </div>
+                </div> */}
             </form>
             </div>
         </Container>

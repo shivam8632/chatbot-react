@@ -29,6 +29,27 @@ function Signup() {
         })
         .catch(function (error) {
             console.log(error);
+            if(error.response.data.firstname) {
+                toast.warn("Please provide First Name");
+            }
+            else if(error.response.data.lastname) {
+                toast.warn("Please provide Last Name");
+            }
+            else if(error.response.data.password) {
+                toast.warn("Please provide Password");
+            }
+            else if(error.response.data.email == "please provide a email") {
+                toast.warn("Please provide an Email");
+            }
+            else if(error.response.data.email == "Enter a valid email address.") {
+                toast.warn("Enter a valid email address");
+            }
+            else if(error.response.data.email == "user with this email address already exists.") {
+                toast.warn("User with this email address already exists.");
+            }
+            else {
+                toast.warn("An error occurred, please try again later")
+            }
         })
     }
   return (
@@ -58,11 +79,11 @@ function Signup() {
                     <span className='mx-md-4'>or</span>
                     <Link to='/'>Sign In</Link>
                 </div>
-                <span className='mt-4 line'></span>
+                {/* <span className='mt-4 line'></span>
                 <div className="buttons w-100 mt-4">
                     <button className='button'><img src={Google} alt='google' /> Sign in with Google</button>
                     <button className='button'><img src={Outlook} alt='outlook' /> Sign in with Outlook</button>
-                </div>
+                </div> */}
             </form>
             </div>
         </Container>
