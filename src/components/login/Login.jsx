@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API } from '../../config/Api';
+import UserContext from '../context/UserContext';
 import axios from 'axios';
 
 import Google from '../../assets/google.svg';
@@ -11,6 +12,7 @@ import Outlook from '../../assets/outlook.svg';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const {setToken} = useContext(UserContext)
 
     const navigate = useNavigate();
 
@@ -22,6 +24,8 @@ function Login() {
         .then(function (response) {
             console.log("LOGIN", response)
             toast.success("Logged in Successfully!");
+            localStorage.setItem("Token",response.data.token.access)
+            setToken(localStorage.getItem("Token"))
             navigate('/dashboard')
         })
         .catch(function (error) {

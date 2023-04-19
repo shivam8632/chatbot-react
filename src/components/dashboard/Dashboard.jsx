@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import RichTextEditor from '../toolbar/Toolbar';
 import SideTab from '../sidetab/SideTab';
 import './dashboard.scss';

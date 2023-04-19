@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, {useState, useContext} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import { Container } from 'react-bootstrap';
+import UserContext from '../context/UserContext';
 
 const RichTextEditor = () => {
   const [comments, setComments] = useState('');
+  const {text} = useContext(UserContext)
 
   const modules = {
     toolbar: [
@@ -38,6 +40,7 @@ const RichTextEditor = () => {
     console.log(editor.getLength()); // number of characters
   };
 
+  console.log("Text", text)
   return (
       <Container>
         <ReactQuill
@@ -45,10 +48,10 @@ const RichTextEditor = () => {
             modules={modules}
             formats={formats}
             onChange={(content, delta, source, editor) => {
-            setComments(editor.getHTML());
+            setComments(text !=null || "" ? text : editor.getHTML());
             rteChange(content, delta, source, editor);
             }}
-            value={comments || ''}
+            value={text !=null || "" ? text : comments}
         />
       </Container>
   );
