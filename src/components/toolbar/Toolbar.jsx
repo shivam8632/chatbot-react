@@ -51,7 +51,7 @@ const RichTextEditor = () => {
             setComments(text !=null || "" ? text : editor.getHTML());
             rteChange(content, delta, source, editor);
             }}
-            value={text !=null || "" ? text : comments}
+            value={text != null && text.length > 0 ? text.map((text) => {return(text)}) : comments}
         />
       </Container>
   );
