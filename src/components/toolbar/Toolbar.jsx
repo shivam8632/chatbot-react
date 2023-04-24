@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
@@ -8,6 +8,7 @@ import UserContext from '../context/UserContext';
 const RichTextEditor = () => {
   const [comments, setComments] = useState('');
   const {text} = useContext(UserContext)
+  const [newText, setNewText] = useState('');
 
   const modules = {
     toolbar: [
@@ -35,12 +36,18 @@ const RichTextEditor = () => {
   ];
 
   const rteChange = (content, delta, source, editor) => {
-    console.log(editor.getHTML()); // rich text
-    console.log(editor.getText()); // plain text
-    console.log(editor.getLength()); // number of characters
+    console.log(editor.getHTML()); 
+    console.log(editor.getText());
+    console.log(editor.getLength());
   };
 
-  console.log("Text", text)
+  // console.log("text:", text);
+  // console.log("defaultValue:", text != null && text.length > 0 ? text.join("\n \n \n") : comments);
+  useEffect(() => {
+    setNewText(text != null && text.length > 0 ? text.join("<br/>") : comments)
+    console.log("New Text", newText)
+
+  })
   return (
       <Container>
         <ReactQuill
@@ -51,7 +58,8 @@ const RichTextEditor = () => {
             setComments(text !=null || "" ? text : editor.getHTML());
             rteChange(content, delta, source, editor);
             }}
-            value={text != null && text.length > 0 ? text.map((text) => {return(text)}) : comments}
+            defaultValue={text != null && text.length > 0 ? text.join("\n \n \n") : comments}
+            value={newText}
         />
       </Container>
   );
