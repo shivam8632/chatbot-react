@@ -44,7 +44,7 @@ const RichTextEditor = () => {
   // console.log("text:", text);
   // console.log("defaultValue:", text != null && text.length > 0 ? text.join("\n \n \n") : comments);
   useEffect(() => {
-    setNewText(text != null && text.length > 0 ? text.join("<br/>") : comments)
+    setNewText(text != null && text.length > 0 ? text.join("<br/><br/>") : comments)
     console.log("New Text", newText)
 
   })
