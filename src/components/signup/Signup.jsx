@@ -56,8 +56,8 @@ function Signup() {
     <div className='signup auth'>
         <Container>
             <div className="auth-container">
-            <h3 className='mb-4'>Sign Up</h3>
-            <form className='d-flex flex-wrap justify-content-between'>
+                <h3 className='mb-4'>Sign Up</h3>
+                <form className='d-flex flex-wrap justify-content-between'>
                 <div className="input-container">
                     <label htmlFor="">First Name</label>
                     <input type="text" placeholder='Enter your First Name' value={firstName} onChange={(e) => {setFirstName(e.target.value)}} />
@@ -84,8 +84,9 @@ function Signup() {
                     <button className='button'><img src={Google} alt='google' /> Sign in with Google</button>
                     <button className='button'><img src={Outlook} alt='outlook' /> Sign in with Outlook</button>
                 </div> */}
-            </form>
+                </form>
             </div>
+            <footer><p className='text-white text-center mt-4'>© 2022-2023 License, Chatbot. All rights reserved</p></footer>
         </Container>
     </div>
   )

@@ -61,6 +61,7 @@ function Login() {
                 </div> */}
             </form>
             </div>
+            <footer><p className='text-white text-center mt-4'>© 2022-2023 License, Chatbot. All rights reserved</p></footer>
         </Container>
     </div>
   )

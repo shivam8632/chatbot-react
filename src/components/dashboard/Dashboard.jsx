@@ -7,7 +7,7 @@ function Dashboard() {
   return (
     <div className='dashboard py-4 py-md-0'>
         <div className="dashboard-container d-flex flex-column flex-md-row">
-            <div className="dash-side col-md-4 col-lg-3">
+            <div className="dash-side col-md-4 col-lg-3 p-4">
                 <SideTab />
             </div>
             <div className="dash-main mt-5 mt-md-0 col-md-8 col-lg-9 pt-md-3 px-lg-4">

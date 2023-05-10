@@ -1,43 +1,52 @@
-import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
-import Row from 'react-bootstrap/Row';
-import Tab from 'react-bootstrap/Tab';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faImage } from '@fortawesome/free-solid-svg-icons';
+import React, {useState, useContext} from 'react';
+import axios from 'axios';
+import { API } from '../../config/Api';
+import UserContext from '../context/UserContext';
 
-import Copy from '../copy/Copy';
-import ImageTab from '../copy/ImageTab';
+function Copy() {
+    const [primaryInput, setPrimaryInput] = useState('');
+    const [loading, setLoading] = useState(false);
+    const {setText, token} = useContext(UserContext)
 
-function SideTab() {
+    const getContent = (e) => {
+        setLoading(true);
+        e.preventDefault();
+        axios.post(API.BASE_URL + 'generate/', {
+            user_id: 1,
+            input: primaryInput
+        }, {
+            headers: {
+            Authorization: `Bearer ${localStorage.getItem("Token")}`
+        }})
+        .then(function (response) {
+            console.log("Data", response);
+            setText(response.data.output)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(() => setLoading(false));
+    }
   return (
-    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-      <Row>
-        <Col sm={12} className='tabs-head px-lg-4'>
-          <Nav variant="pills" className="flex-row">
-            <Nav.Item>
-              <Nav.Link className='d-flex align-items-center' eventKey="first">
-                <FontAwesomeIcon icon={faCopy} style={{ color: "#4a5568", width: "12px", height: "12px", marginRight: 8 }} />Copy</Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link className='d-flex align-items-center' eventKey="second">
-                <FontAwesomeIcon icon={faImage} style={{ color: "#4a5568", width: "12px", height: "12px", marginRight: 8 }} />Image</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col sm={12} className=' pt-4 tabs-content px-lg-4'>
-          <Tab.Content>
-            <Tab.Pane eventKey="first">
-              <Copy />
-            </Tab.Pane>
-            <Tab.Pane eventKey="second">
-              <ImageTab />
-            </Tab.Pane>
-          </Tab.Content>
-        </Col>
-      </Row>
-    </Tab.Container>
-  );
+    <div className="copy" id="left-tabs-example">
+        {loading && <div className='loader'><span></span></div>}
+        <form action="">
+            <div className="input-container w-100">
+                <label htmlFor="">Primary Keyword</label>
+                <input type="text" placeholder='AI writing assistant' value={primaryInput} onChange={(e) => {setPrimaryInput(e.target.value)}} />
+            </div>
+            <div className="input-container w-100">
+                <label htmlFor="">Upload a File</label>
+                <input type="file" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+            </div>
+            <div className="input-container">
+                <label htmlFor="">Enter a URL</label>
+                <input type='url' placeholder='URL for Scraping Data' />
+            </div>
+            <button type='button' className='button button-fill' onClick={(e) => {getContent(e)}}>Start Writing</button>
+        </form>
+    </div>
+  )
 }
 
-export default SideTab;
+export default Copy
